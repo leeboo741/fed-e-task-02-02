@@ -103,5 +103,62 @@
 
 ```js
     // 导入导出 注意事项
+    // 1. exprot 导出的不是对象的字面量  import 导入的不是对象的结构
+    // export 和 import 后的花括号 只是固定用法
+    var name = "jack";
+    var age = 18;
+    var obj = {name, age}
+    export{ name, age}
+    import{name, age}
+    // export default {name, age} 这个时候才是导出对象
+    // import {name, age } 会报错
+    // 需要 import tempObj from ""
+
+    // 2. export 导出的是 引用关系 内存地址 只读的属性
+    // 也就是模块内部可以修改 name 和 age 的值， 会对外部造成影响
+    // 外部不能修改 name 和 age 的值
+```
+
+```js
+    // import 导入
+    import {name} from './modules.js';
+    // from 后是完整路径, 不能省略扩展名  与 commonJs 区别
+    // 可以使用绝对路径,相对路径,请求路径   允许直接引用cdn 上的包
+    import {name} from '/fed-e-task-02-02/notes/modules.js'
+    import {name} from 'http://localhost:3000/fed-e-task-02-02/notes/modules.js'
+    // ./不能省略  省略会认为在应用第三方库
+    // import {name} from "modules.js"
+
+    // import {} from "./modules.js"
+    // 执行模块, 不提取任何成员
+    // 简写方式 import "./modules.js"
+
+    // import * as mod from "./modules.js"
+    // 导出全部成员, 已mod对象的方式导出, 以mod.name 的方式读取和使用
+
+    // 动态导入模块
+    var modulePath = "./modules.js";
+    import (modulePath).then(function(modules) {
+        console.log(modules)
+    })
+
+    // 同时导出匿名成员 和 默认成员
+    import {name, age, default as title} from './modules.js';
+    // 简写
+    import title, {name, age} from './modules.js';
+
+```
+
+```js
+    // 直接导出导入成员
+    // import 替换成 export
+    export{name, age} from './modules.js';
+    // 直接将导入成员导出
+    // 使用 index.js 将大量导入 批量导出
+```
+
+
+```js
     
+
 ```
